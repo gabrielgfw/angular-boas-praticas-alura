@@ -8,7 +8,10 @@
         placeholder="Nome do Usuário"
         type="text"
         [(ngModel)]="usuario"
-        name="usuario">
+        name="usuario"
+        #campoUsuario="ngModel"
+        required>
+        <app-mensagem *ngIf="campoUsuario.invalid" mensagem="Usuário obrigatório"></app-mensagem>
     </div>
 
     <div class="mb-4">
@@ -17,7 +20,10 @@
         placeholder="Senha"
         type="password"
         [(ngModel)]="senha"
-        name="senha">
+        name="senha"
+        #campoSenha="ngModel"
+        required>
+        <app-mensagem *ngIf="campoSenha.invalid" mensagem="Senha obrigatória"></app-mensagem>
     </div>
 
     <div class="d-grid gap-2">
