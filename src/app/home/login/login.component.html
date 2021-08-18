@@ -1,7 +1,7 @@
 <div class="container">
   <h4 class="text-center mt-4">Login</h4>
 
-  <form class="form mt-5" (ngSubmit)="login()">
+  <form class="form mt-5" (ngSubmit)="login()" #loginForm="ngForm">
     <div class="mb-3">
       <input
         class="form-control"
@@ -11,7 +11,10 @@
         name="usuario"
         #campoUsuario="ngModel"
         required>
-        <app-mensagem *ngIf="campoUsuario.invalid" mensagem="Usuário obrigatório"></app-mensagem>
+        <app-mensagem
+          *ngIf="campoUsuario.invalid && campoUsuario.touched"
+          mensagem="Usuário obrigatório">
+        </app-mensagem>
     </div>
 
     <div class="mb-4">
@@ -23,11 +26,19 @@
         name="senha"
         #campoSenha="ngModel"
         required>
-        <app-mensagem *ngIf="campoSenha.invalid" mensagem="Senha obrigatória"></app-mensagem>
+        <app-mensagem
+          *ngIf="campoSenha.invalid && campoUsuario.touched"
+          mensagem="Senha obrigatória">
+        </app-mensagem>
     </div>
 
     <div class="d-grid gap-2">
-      <button type="submit" class="btn btn-primary">Login</button>
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="loginForm.invalid">
+        Login
+      </button>
     </div>
   </form>
 </div>
