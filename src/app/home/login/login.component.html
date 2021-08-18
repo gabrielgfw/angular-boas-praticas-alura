@@ -1,13 +1,23 @@
 <div class="container">
   <h4 class="text-center mt-4">Login</h4>
 
-  <form class="form mt-5">
+  <form class="form mt-5" (ngSubmit)="login()">
     <div class="mb-3">
-      <input class="form-control" placeholder="Nome do Usuário" type="text">
+      <input
+        class="form-control"
+        placeholder="Nome do Usuário"
+        type="text"
+        [(ngModel)]="usuario"
+        name="usuario">
     </div>
 
     <div class="mb-4">
-      <input class="form-control" placeholder="Senha" type="password">
+      <input
+        class="form-control"
+        placeholder="Senha"
+        type="password"
+        [(ngModel)]="senha"
+        name="senha">
     </div>
 
     <div class="d-grid gap-2">
