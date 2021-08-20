@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NovoUsuario } from './novo-usuario';
 import { minusculoValidator } from './minusculo.validator';
 import { usuarioSenhaIguaisValidator } from './usuario-senha-iguais.validator';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-novo-usuario',
@@ -17,7 +18,8 @@ export class NovoUsuarioComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private novoUsuarioService: NovoUsuarioService,
-    private usuarioExisteService: UsuarioExisteService
+    private usuarioExisteService: UsuarioExisteService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -29,14 +31,25 @@ export class NovoUsuarioComponent implements OnInit {
     },
     {
       validators: [usuarioSenhaIguaisValidator]
-    }
-
-    );
+    });
   }
 
   cadastrar() {
-    const novoUsuario = this.novoUsuarioForm.getRawValue() as NovoUsuario;
-    console.log(novoUsuario);
+    // Verifica se o form está válido.
+    if(this.novoUsuarioForm.valid) {
+      const novoUsuario = this.novoUsuarioForm.getRawValue() as NovoUsuario;
+      // Chama o service para cadastrar, que retornará uma observable.
+      this.novoUsuarioService.cadastraNovoUsuario(novoUsuario).subscribe(
+        // Caso a chamada tenha tido sucesso, usuário será redirecionado.
+        () => {
+          this.router.navigate(['']);
+        },
+        // Caso algum erro tenha acontecido durante a chamada.
+        (error) => {
+          console.log(error);
+        }
+      );
+    }
   }
 
 }
